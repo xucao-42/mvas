@@ -1,5 +1,5 @@
 <h2 align="center">Multi-View Azimuth Stereo via Tangent Space Consistency</h2>
-<h3 align="center">
+<h4 align="center">
     <a href="https://xucao-42.github.io/homepage/"><strong>Xu Cao</strong></a>
     ·
     <a href="https://sites.google.com/view/hiroaki-santo/"><strong>Hiroaki Santo</strong></a>
@@ -8,7 +8,7 @@
     ·
     <a href="http://www-infobiz.ist.osaka-u.ac.jp/en/member/matsushita/"><strong>Yasuyuki Matsushita</strong></a>
 </h3>
-<h3 align="center"><a href="https://cvpr2023.thecvf.com">CVPR 2023 </a></h3>
+<h4 align="center"><a href="https://cvpr2023.thecvf.com">CVPR 2023 </a></h3>
 <p align="center">
   <br>
     <a href="">
