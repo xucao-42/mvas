@@ -1,4 +1,4 @@
-<h1 align="center">Multi-View Azimuth Stereo via Tangent Space Consistency</h1>
+<h2 align="center">Multi-View Azimuth Stereo via Tangent Space Consistency</h2>
 <h3 align="center">
     <a href="https://xucao-42.github.io/homepage/"><strong>Xu Cao</strong></a>
     ·
