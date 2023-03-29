@@ -9,28 +9,18 @@
     <a href="http://www-infobiz.ist.osaka-u.ac.jp/en/member/matsushita/"><strong>Yasuyuki Matsushita</strong></a>
 </h3>
 <h3 align="center"><a href="https://cvpr2023.thecvf.com">CVPR 2023 </a></h3>
-
+<p align="center">
+  <br>
+    <a href="">
+      <img src='https://img.shields.io/badge/arXiv-Paper-981E32?style=for-the-badge&Color=B31B1B' alt='arXiv PDF'>
+    </a>
+    <a href='https://xucao-42.github.io/mvas_homepage/'>
+      <img src='https://img.shields.io/badge/MVAS-Project Page-5468FF?style=for-the-badge' alt='Project Page'></a>
+</p>
 <div align="center">
 <img src="./media/teaser.png" alt="Teaser" width="100%">
 3D reconstruction only using surface azimuth maps. 
 </div>
-
-[//]: # (<p align="center">)
-
-[//]: # (  <br>)
-
-[//]: # (    <a href="">)
-
-[//]: # (      <img src='https://img.shields.io/badge/Paper-PDF-green?style=for-the-badge&logo=adobeacrobatreader&logoWidth=20&logoColor=white&labelColor=66cc22&color=94DD15' alt='arXiv PDF'>)
-
-[//]: # (    </a>)
-
-[//]: # (    <a href='https://xiuyuliang.cn/econ/'>)
-
-[//]: # (      <img src='https://img.shields.io/badge/ECON-Page-orange?style=for-the-badge&logo=Google%20chrome&logoColor=white&labelColor=D35400' alt='Project Page'></a>)
-
-[//]: # (</p>)
-
 
 # Dependencies
 Our code was tested on Ubuntu18.04 with Python 3.9, PyTorch 1.12, and Cuda 11.3 using one RTX 2080 Ti.
