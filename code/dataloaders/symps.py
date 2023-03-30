@@ -19,7 +19,6 @@ class SympsDataloader(Dataset):
                  camera_object_ratio=3,
                  exclude_views=[],
                  debug_mode=False):
-
         self.data_dir = os.path.join(data_dir, obj_name)
         self.downscale = downscale
         self.camera_object_ratio = camera_object_ratio
@@ -43,21 +42,12 @@ class SympsDataloader(Dataset):
         view_count = -1
         for view_idx in self.image_id_list:
             view_count += 1
-            if view_idx in exclude_views:
-                view_count -= 1
-                print(f"{view_idx} is excluded!")
-                continue
-            else:
-                print(f"Processing {view_idx}...")
+            print(f"Processing {view_idx}...")
             # ========================================load masks=========================================================
             view_mask = cv2.imread(os.path.join(mask_dir, f"{view_idx}.png"), -1).astype(bool)
             if downscale is not None:
                 view_mask = rescale(view_mask, 1. / downscale, anti_aliasing=False, channel_axis=None)
             mask_list.append(view_mask)
-            # if debug_mode:
-            #     import matplotlib.pyplot as plt
-            #     plt.imshow(view_mask*255)
-            #     plt.show()
 
             expanded_mask = boundary_expansion_mask(view_mask)
             for _ in range(100):
@@ -91,8 +81,7 @@ class SympsDataloader(Dataset):
             tangents_list.append(tangents)
 
             camera_center = - R.T @ t  # in world coordinate
-            camera_center_scaled = (
-                                               camera_center - self.normalized_coordinate_center) / self.normalized_coordinate_scale
+            camera_center_scaled = (camera_center - self.normalized_coordinate_center) / self.normalized_coordinate_scale
             camera_center_repeated_list.append(np.tile(camera_center_scaled.T, (np.sum(expanded_mask), 1)))
             self.camera_center_all_view.append(
                 torch.from_numpy(np.tile(camera_center_scaled.T, (np.sum(expanded_mask), 1))).float())
@@ -305,8 +294,13 @@ class symps_single_view_Loader(Dataset):
 
 
 if __name__ == '__main__':
-    buddha = SympsDataloader(data_dir="../../data/SymPS",
+    dataset = SympsDataloader(data_dir="../../data/SymPS",
                              obj_name="gargoyle",
                              downscale=8,
-                             camera_object_ratio=100,
-                             debug_mode=True)
+                             camera_object_ratio=3,
+                             debug_mode=False,
+                            exclude_views=["IMG_0466", "IMG_0476"])
+
+
+
+

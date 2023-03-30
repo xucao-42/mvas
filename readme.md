@@ -11,7 +11,7 @@
 <h4 align="center"><a href="https://cvpr2023.thecvf.com">CVPR 2023 </a></h3>
 <p align="center">
   <br>
-    <a href="">
+    <a href="https://arxiv.org/abs/2303.16447">
       <img src='https://img.shields.io/badge/arXiv-Paper-981E32?style=for-the-badge&Color=B31B1B' alt='arXiv PDF'>
     </a>
     <a href='https://xucao-42.github.io/mvas_homepage/'>
@@ -47,20 +47,21 @@ python exp_runner.py --config configs/diligent_mv.conf
 ```
 </details>
 
-[//]: # (<details><summary>Train on SymPS data &#40;&#41;</summary>)
+<details><summary>Train on SymPS data (5.7 GB)</summary>
 
-[//]: # ()
-[//]: # (Download data from [Google Drive]&#40;&#41; and extract it under `data` folder.)
 
-[//]: # (Run)
+Download data from [Google Drive](https://drive.google.com/file/d/1UzsXcb1VrJGiagCPMGJwEBfM_TZ_xnFu/view?usp=sharing) and extract it under `data` folder.
 
-[//]: # (```)
+Run
 
-[//]: # (python exp_runner.py --config configs/symps.conf)
+```
 
-[//]: # (```)
+python exp_runner.py --config configs/symps_gargoyle.conf
+# or you can try symps_house.conf and symps_moai.conf
 
-[//]: # (</details>)
+```
+
+</details>
 
 <details><summary>Train on PANDORA data (2.7 GB)</summary>
 
@@ -79,19 +80,30 @@ Results will be saved in `results/$obj_name/$exp_time`.
 <details><summary> DiLiGenT-MV </summary>
 
 - `input_azimuth_maps`: These are 16-bit RGBA images where the alpha channel represents the object mask and the RGB channels are identical. 
-Each RGB channel can be converted to azimuth angles within [0, pi] by multiplying it by pi/65535. The azimuth angle is measured clockwise from the x-axis, which points to the right, and is consistent with OpenCV conversion (x-axis to the right, y-axis downward). 
+Each RGB channel can be converted to azimuth angles within [0, pi] by multiplying it by pi/65535. The azimuth angle is measured clockwise from the x-axis, which points to the right, and is consistent with OpenCV convention (x-axis to the right, y-axis downward). 
 The azimuth maps do not need to be stored in the range [0, 2π], as our method is π-invariant.
 - `vis_azimuth_maps`: These are for visualization purposes only and are not used during training.
-- `normal_maps`: These are the normal maps used to create the input azimuth maps.
-- `params.json`: This file is from PS-NeRF and contains the camera intrinsic parameters, as the normal and azimuth maps are cropped to 400 x 400.
-- `Calib_Results.mat`: This file is from the original DiLiGenT-MV dataset and provides the camera extrinsic information.
+- `normal_maps`: These are the normal maps used to create the input azimuth maps. We applied [SDPS-Net](https://github.com/guanyingc/SDPS-Net) independently in each view to obtain the normal maps.
+- `params.json`: This file is from [PS-NeRF preprocessing](https://github.com/ywq/psnerf/tree/main/preprocessing) and contains the camera intrinsic parameters, as the normal and azimuth maps are cropped to 400 x 400.
+- `Calib_Results.mat`: This file is from the original [DiLiGenT-MV](https://sites.google.com/site/photometricstereodata/mv) dataset and provides the camera extrinsic information.
+</details>
+
+<details><summary> SymPS </summary>
+
+- `input_azimuth_maps`:  These are 16-bit gray-scale images.
+  The pixel values can be converted to azimuth angles within [0, pi] by multiplying them by pi/65535. The azimuth angle is measured clockwise from the x-axis, which points to the right, and is consistent with OpenCV convention (x-axis to the right, y-axis downward).
+  The azimuth maps do not need to be stored in the range [0, 2π], as our method is π-invariant.
+- `mask`: Binary masks indicating the object silhouettes. 
+- `sparse`: This folder contains Colmap-calibrated camera intrinsic and extrinsic information.
+- `images_SfM`: These are images used for structure from motion in Colmap.
+
 </details>
 
 <details><summary> PANDORA </summary>
 
 - `input_azimuth_maps`:  These are 16-bit RGBA images where the alpha channel represents the object mask and the RGB channels are identical.
-  Each RGB channel can be converted to azimuth angles within [0, pi] by multiplying it by pi/65535. The azimuth angle is measured clockwise from the x-axis, which points to the right, and is consistent with OpenCV conversion (x-axis to the right, y-axis downward).
-  The azimuth maps do not need to be stored in the range [0, 2π], as our method is π-invariant. Note that PANDORA is a polarization image dataset and the azimuth maps have half-pi ambiguity.
+  Each RGB channel can be converted to azimuth angles within [0, pi] by multiplying it by pi/65535. The azimuth angle is measured clockwise from the x-axis, which points to the right, and is consistent with OpenCV convention (x-axis to the right, y-axis downward).
+  The azimuth maps do not need to be stored in the range [0, 2π], as our method is π-invariant. Note that since PANDORA is a polarization image dataset, the azimuth maps have half-pi ambiguity.
 - `vis_azimuth_maps`: These are for visualization purposes only and are not used during training.
 - `sparse`: This folder is from PANDORA and contains Colmap-calibrated camera intrinsic and extrinsic information.
 - `images`: These are for reference purpose and not used in training.

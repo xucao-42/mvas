@@ -85,7 +85,6 @@ def main(conf_dir):
             try:
                 if epoch_idx+1 in conf["train"]["downscale_milestones"]:
                     del dataset, dataloader
-                    # print(downscale)
                     downscale /= conf["train"]["downscale_factor"]
                     dataset = get_class(conf["train"]["dataset_class"])(obj_name=obj_name,
                                                                         downscale=downscale,
@@ -165,7 +164,6 @@ def main(conf_dir):
 if __name__ == "__main__":
     import argparse
     import os
-
 
     def file_path(string):
         if os.path.isfile(string):
