@@ -22,20 +22,19 @@
 3D reconstruction only using surface azimuth maps. 
 </div>
 
-# Dependencies
-Our code was tested on Ubuntu18.04 with Python 3.9, PyTorch 1.12, and Cuda 11.3 using one RTX 2080 Ti.
-Reproduce our environment by
-```
-conda env create -f environment.yml 
-conda activate mvas
-```
 
 # Quick Start
-
+Our code was tested on Ubuntu18.04 with Python 3.9, PyTorch 1.12, and Cuda 11.3.
+Follow these steps to reproduce our environment and results.
 ```
 git clone https://github.com/xucao-42/mvas.git
-mkdir mvas/data
-cd mvas/code
+cd mvas
+
+conda env create -f environment.yml 
+conda activate mvas
+
+mkdir ./data
+cd ./code
 ```
 
 <details><summary>Train on DiLiGenT-MV data (280 MB)</summary>
