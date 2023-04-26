@@ -31,10 +31,15 @@ class MVASLoss(nn.Module):
 
         tangents_all_view[torch.isnan(tangents_all_view)] = 1
         num_visible_views = visibility_mask.sum(-1)
-        loss = visibility_mask * ((normals.unsqueeze(1) * tangents_all_view).sum(-1)) ** 2
+        # compute the tangent space consistency loss for each surface point in each view
+        loss_per_point_per_view = visibility_mask * ((normals.unsqueeze(1) * tangents_all_view).sum(-1)) ** 2
+        # only consider surface points that are visible in at least one view
         visible_view_mask = num_visible_views > 0
-        return (loss[visible_view_mask].sum(-1) / num_visible_views[visible_view_mask]).sum() / float(
-            object_mask.shape[0])
+        # sum over all views for each surface point
+        loss_per_point = loss_per_point_per_view[visible_view_mask].sum(-1) / num_visible_views[visible_view_mask]
+        # sum over all surface points
+        return loss_per_point.sum() / float(object_mask.shape[0])
+
 
     def get_half_pi_tangent_space_consistency_loss(self, normals, tangents_all_view, tangents_all_view_pi2,
                                                    visibility_mask, object_mask):
@@ -47,11 +52,14 @@ class MVASLoss(nn.Module):
         tangents_all_view_pi2[torch.isnan(tangents_all_view_pi2)] = 1
         num_visible_views = visibility_mask.sum(-1)
 
+        # compute the tangent space consistency loss for each surface point in each view, considering both possibilities
         loss_1 = visibility_mask * (((normals.unsqueeze(1) * tangents_all_view).sum(-1)) ** 2)
         loss_2 = visibility_mask * (((normals.unsqueeze(1) * tangents_all_view_pi2).sum(-1)) ** 2)
 
         visible_view_mask = num_visible_views > 0
+        # sum over all views for each surface point
         loss = (loss_1 * loss_2)[visible_view_mask].sum(-1) / num_visible_views[visible_view_mask]
+        # sum over all surface points
         return loss.sum() / float(object_mask.shape[0])
 
     def get_eikonal_loss(self, grad_theta):
